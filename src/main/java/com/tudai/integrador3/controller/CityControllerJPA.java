@@ -1,5 +1,4 @@
 package com.tudai.integrador3.controller;
-
 import com.tudai.integrador3.entity.City;
 import com.tudai.integrador3.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
