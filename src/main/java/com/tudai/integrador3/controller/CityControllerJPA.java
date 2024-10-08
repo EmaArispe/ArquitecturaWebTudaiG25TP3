@@ -1,5 +1,7 @@
 package com.tudai.integrador3.controller;
+import com.tudai.integrador3.entity.Career;
 import com.tudai.integrador3.entity.City;
+import com.tudai.integrador3.entity.Student;
 import com.tudai.integrador3.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,5 +35,10 @@ public class CityControllerJPA {
     @PostMapping()
     public @ResponseBody ResponseEntity<?> addCity(@RequestBody City newCity) {
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(newCity));
+    }
+
+    @GetMapping
+    public List<City> getAllCities() {
+        return repository.findAll();
     }
 }

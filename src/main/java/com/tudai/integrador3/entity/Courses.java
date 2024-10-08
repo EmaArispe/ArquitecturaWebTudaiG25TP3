@@ -1,17 +1,17 @@
 package com.tudai.integrador3.entity;
 
 import jakarta.annotation.Nullable;
-
 import java.io.Serializable;
 import java.time.LocalDate;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
+@IdClass(CoursesId.class)//necesario para que springboot reconozca la clave compuesta
 public class Courses implements Serializable{
     //clave compuesta
     @Id
     @ManyToOne
-    @JoinColumn(name = "id_Student")
+    @JoinColumn(name = "id_Student", referencedColumnName = "DNI",nullable = false)
     private Student student;
     @Id
     @ManyToOne
@@ -66,6 +66,10 @@ public class Courses implements Serializable{
 
     public Student getStudent() {
         return student;
+    }
+
+    public LocalDate getFinish_date(){
+        return finish_date;
     }
 
     public void setGraduated() {

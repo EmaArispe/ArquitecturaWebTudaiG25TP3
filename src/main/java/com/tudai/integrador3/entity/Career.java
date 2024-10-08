@@ -1,11 +1,14 @@
 package com.tudai.integrador3.entity;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 @Entity
 public class Career {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCareer;
 
     @Column(name = "Nombre")
@@ -30,10 +33,11 @@ public class Career {
         return name;
     }
 
+    @JsonIgnore
     public List<Courses> getCourses() {
         return students;
     }
-
+    @JsonIgnore
     public void addCourses(Courses course){
         students.add(course);
     }

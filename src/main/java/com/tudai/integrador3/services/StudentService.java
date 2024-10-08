@@ -22,9 +22,15 @@ public class StudentService {
 
     @Autowired
     private CareerRepository careerRepository;
+
+
     // crear estudiante
     public Student createStudent(Student student) {
         return studentRepository.save(student);
+    }
+
+    public List<Student>getAll(){
+        return studentRepository.findAll();
     }
 
     // obtnere todos los estudiantes, con opción de ordenar

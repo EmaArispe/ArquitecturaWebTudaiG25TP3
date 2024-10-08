@@ -1,6 +1,6 @@
 package com.tudai.integrador3.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
