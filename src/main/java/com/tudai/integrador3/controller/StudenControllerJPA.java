@@ -1,4 +1,5 @@
 package com.tudai.integrador3.controller;
+
 import com.tudai.integrador3.entity.Student;
 import com.tudai.integrador3.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("api/students")
 public class StudenControllerJPA {
-
 
     @Autowired
     private StudentService studentService;
@@ -31,9 +31,14 @@ public class StudenControllerJPA {
     } */
 
     // c)recuperar todos los estudiantes ordenados por un criterio
-    @GetMapping
-    public List<Student> getAllStudents(@RequestParam(required = false) String sortBy) {
+    /*@GetMapping
+    public List<Student> getAllStudentsSortBy(@RequestParam(required = false) String sortBy) {
         return studentService.getAllStudents(sortBy);
+    }*/
+
+    @GetMapping
+    public List<Student> getAllStudents(){
+        return studentService.getAll();
     }
 
     // d)recuperar estudiante por num de libreta

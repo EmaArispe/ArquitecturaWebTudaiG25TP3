@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/careers")
+@RequestMapping("/api/careers")
 public class CareerControllerJPA {
     @Autowired
     private CareerService careerService;
@@ -21,8 +21,13 @@ public class CareerControllerJPA {
     //crear o actualizar una carrera
     @PostMapping
     public ResponseEntity<Career> createOrUpdateCareer(@RequestBody Career career) {
-        Career savedCareer = careerService.createOrUpdateCareer(career);
-        return ResponseEntity.ok(savedCareer);
+        try{
+            Career savedCareer = careerService.createOrUpdateCareer(career);
+            return ResponseEntity.ok(savedCareer);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     //obtener todas las carreras

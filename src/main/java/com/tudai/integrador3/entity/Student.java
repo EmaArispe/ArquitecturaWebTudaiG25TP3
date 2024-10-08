@@ -1,12 +1,12 @@
 package com.tudai.integrador3.entity;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
 
 @Entity
 public class Student {
     @Id
-    @Column(name="DNI")
+    @Column(name="DNI",nullable = false)
     private int dni;
 
     @Column(name="idLibreta")
@@ -27,7 +27,7 @@ public class Student {
     @ManyToOne
     private City city;
 
-    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     private List<Courses> courses;  // muestro todas las carreras que cursa el estudiante
 
     public Student(){}
