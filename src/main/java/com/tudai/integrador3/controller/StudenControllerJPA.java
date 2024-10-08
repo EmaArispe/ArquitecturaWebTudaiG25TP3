@@ -34,7 +34,7 @@ public class StudenControllerJPA {
     @GetMapping
     public List<Student> getAllStudents(@RequestParam(required = false) String sortBy) {
         return studentService.getAllStudents(sortBy);
-    }
+    }//coment
 
     // d)recuperar estudiante por num de libreta
     @GetMapping("/libreta/{libreta}")
