@@ -24,7 +24,7 @@ import java.util.Optional;
 
 @Component
 public class CSVReader {
-
+    @Autowired
     private final CityRepository cityRepository;
     private final CareerRepository careerRepository;
     private final CourseRepository coursesRepository;

@@ -8,17 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Integrador3Application {
-	@Autowired
-	private CSVReader csvReader;
-
 	public static void main(String[] args) {
-
 		SpringApplication.run(Integrador3Application.class, args);
-		/*
-		@PostConstruct
-		public void init() throws IOException {
-			csvReader.loadData();
-		}*/
 	}
 
 }
