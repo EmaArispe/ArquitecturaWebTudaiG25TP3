@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/cities")
+@RequestMapping("api/cities")
 public class CityControllerJPA {
 
     @Qualifier("cityRepository")

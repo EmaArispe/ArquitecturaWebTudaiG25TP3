@@ -42,9 +42,9 @@ public class StudenControllerJPA {
     }
 
     // d)recuperar estudiante por num de libreta
-    @GetMapping("/libreta/{libreta}")
-    public ResponseEntity<Student> getStudentByLibreta(@PathVariable int libreta) {
-        return studentService.getStudentByLibreta(libreta);
+    @GetMapping("/studentNumber/{studentNumber}")
+    public ResponseEntity<Student> getStudentByLibreta(@PathVariable int studentNumber) {
+        return studentService.getStudentByLibreta(studentNumber);
     }
 
     // e)recuperar todos los estudiantes filtrados por genero

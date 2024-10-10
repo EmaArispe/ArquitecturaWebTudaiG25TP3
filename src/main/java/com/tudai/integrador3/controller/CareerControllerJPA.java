@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/careers")
+@RequestMapping("api/careers")
 public class CareerControllerJPA {
     @Autowired
     private CareerService careerService;
