@@ -1,4 +1,5 @@
 package com.tudai.integrador3.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class Student {
     private City city;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Courses> courses;  // muestro todas las carreras que cursa el estudiante
 
     public Student(){}

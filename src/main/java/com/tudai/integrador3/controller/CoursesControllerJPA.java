@@ -33,14 +33,17 @@ public class CoursesControllerJPA {
 
     // c)crear un nuevo curso
     @PostMapping
-    public ResponseEntity<Courses> createCourse(@RequestBody CoursesDto courseDto) {
+    public ResponseEntity<CoursesDto> createCourse(@RequestBody CoursesDto courseDto) {
         try{
-            System.out.print("hola");
-            Courses course = courseService.createCourse(courseDto);
+            CoursesDto course = courseService.createCourse(courseDto);
             return ResponseEntity.ok(course);
-        }catch(Exception e){
+        }catch(RuntimeException e){
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

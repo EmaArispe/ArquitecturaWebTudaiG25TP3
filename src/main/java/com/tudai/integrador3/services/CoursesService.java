@@ -1,4 +1,5 @@
 package com.tudai.integrador3.services;
+import com.tudai.integrador3.Exeptions.ResourseNotFoundException;
 import com.tudai.integrador3.dto.CoursesDto;
 import com.tudai.integrador3.dto.CreateCourseDto;
 import com.tudai.integrador3.entity.Career;
@@ -8,6 +9,8 @@ import com.tudai.integrador3.repository.CareerRepository;
 import com.tudai.integrador3.repository.CourseRepository;
 import com.tudai.integrador3.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,15 +37,18 @@ public class CoursesService {
     }
 
     // crear un nuevo curso
-    public Courses createCourse(CoursesDto courseDto) {
-        System.out.print(courseDto.getStudentId());
-        Student student = studentRepository.findById(courseDto.getStudentId()).
-                orElseThrow(() -> new RuntimeException("No existe estudiante"));
-        Career career = careerRepository.findById(courseDto.getCareerId()).
-                orElseThrow(() -> new RuntimeException("No existe carrera"));
+    public CoursesDto createCourse(CoursesDto courseDto) {
+        if(!studentRepository.existsById(courseDto.getStudentId())){
+            throw new ResourseNotFoundException("El estudiante no existe");
+        }
+        if(!careerRepository.existsById(courseDto.getCareerId())){
+            throw new ResourseNotFoundException("La carrera no existe");
+        }
+        Student student = studentRepository.findById(courseDto.getStudentId()).get();
+        Career career = careerRepository.findById(courseDto.getCareerId()).get();
         //si existen creo cursada
-        Courses course = new Courses(student,career,courseDto.getStartDate(),courseDto.getFinishDate());
-        return courseRepository.save(course);
+        Courses c = courseRepository.save(new Courses(student,career,courseDto.getStartDate(),courseDto.getFinishDate()));
+        return new CoursesDto(c.getStudent().getIdLibreta(),c.getCareer().getId(),c.getStart_date(),c.getFinish_date(),c.isGraduated());
     }
 
     //obtener un curso por su ID
