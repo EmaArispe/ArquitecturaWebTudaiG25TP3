@@ -1,5 +1,6 @@
 package com.tudai.integrador3.services;
 import com.tudai.integrador3.dto.CareerStudentDto;
+import com.tudai.integrador3.dto.ReportStudentDto;
 import com.tudai.integrador3.dto.StudentDto;
 import com.tudai.integrador3.entity.Career;
 import com.tudai.integrador3.repository.CareerRepository;
@@ -15,6 +16,13 @@ import java.util.stream.Collectors;
 public class CareerService {
     @Autowired
     private CareerRepository careerRepository;
+
+    //reporte punto h
+    public List<ReportStudentDto>getStudentReportCarreerDto(){
+        List<ReportStudentDto> reportList = careerRepository.getStudentReportCarreerDto();
+        return reportList;
+    }
+
 
     //punto g/
 

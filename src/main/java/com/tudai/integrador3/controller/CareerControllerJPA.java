@@ -1,5 +1,6 @@
 package com.tudai.integrador3.controller;
 
+import com.tudai.integrador3.dto.ReportStudentDto;
 import com.tudai.integrador3.entity.Career;
 import com.tudai.integrador3.entity.Student;
 import com.tudai.integrador3.services.CareerService;
@@ -22,7 +23,7 @@ public class CareerControllerJPA {
     //crear o actualizar una carrera
     @PostMapping
     public ResponseEntity<Career> createOrUpdateCareer(@RequestBody Career career) {
-        try{
+        try {
             Career savedCareer = careerService.createOrUpdateCareer(career);
             return ResponseEntity.ok(savedCareer);
         } catch (Exception e) {
@@ -45,8 +46,8 @@ public class CareerControllerJPA {
     }
 
     @GetMapping("/inscripts")
-    public ResponseEntity<?> findCarrersOrderedByStudentCount(){
-        try{
+    public ResponseEntity<?> findCarrersOrderedByStudentCount() {
+        try {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(careerService.findCareersOrderedByStudentcount());
         } catch (Exception e) {
             String errorJson = "{\"message\": \"Error en la consulta\", \"details\"}";
@@ -57,4 +58,18 @@ public class CareerControllerJPA {
         }
     }
 
+    @GetMapping("/report")
+    public ResponseEntity<?> getStudentReportCarreerDto() {
+        try {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(careerService.getStudentReportCarreerDto());
+        } catch (
+                Exception e) {
+            String errorJson = "{\"message\": \"Error en la consulta\", \"details\"}";
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(errorJson);
+        }
+
+    }
 }
