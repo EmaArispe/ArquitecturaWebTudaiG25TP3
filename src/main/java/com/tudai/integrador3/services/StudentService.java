@@ -64,12 +64,16 @@ public class StudentService {
 
     // obtener estudiantes por genero
     public List<Student> getStudentsByGender(char gender) {
-        return studentRepository.findByGender(gender);
+        if(gender == 'M' || gender == 'm' || gender == 'f' || gender == 'F'){
+            return studentRepository.findByGender(gender);
+        }else{
+            throw new RuntimeException();
+        }
     }
 
     // obtener estudiantes por carrera y ciudad
-    public List<Student> getStudentsByCareerAndCity(int careerId, String city) {
-        return studentRepository.findByCareerAndCity(careerId, city);
+    public List<Student> getStudentsByCareerAndCity(int careerId, int cityId) {
+            return studentRepository.findByCareerAndCity(careerId, cityId);
     }
 
 

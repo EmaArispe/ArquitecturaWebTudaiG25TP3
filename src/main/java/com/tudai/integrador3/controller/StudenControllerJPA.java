@@ -50,25 +50,60 @@ public class StudenControllerJPA {
     }*/
 
     @GetMapping
-    public List<StudentDto> getAllStudents(){
-        return studentService.getAll();
+    public ResponseEntity<?> getAllStudents(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.getAll());
+        } catch (Exception e) {
+            String errorJson = "{\"message\": \"Error al buscar todos los estudiantes\", \"details\"}";
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(errorJson);
+        }
     }
 
     // d)recuperar estudiante por num de libreta
+
+    /// DEVOLVER DTO !!!!!!
     @GetMapping("/studentNumber/{studentNumber}")
-    public ResponseEntity<Student> getStudentByLibreta(@PathVariable int studentNumber) {
-        return studentService.getStudentByLibreta(studentNumber);
+    public ResponseEntity<?> getStudentByLibreta(@PathVariable int studentNumber) {
+        try {
+            return studentService.getStudentByLibreta(studentNumber);
+        }
+        catch(Exception e) {
+        String errorJson = "{\"message\": \"Error al buscar estudiante por libreta\", \"details\"}";
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(errorJson);
+    }
     }
 
     // e)recuperar todos los estudiantes filtrados por genero
     @GetMapping("/gender/{gender}")
-    public List<Student> getStudentsByGender(@PathVariable char gender) {
-        return studentService.getStudentsByGender(gender);
+    public ResponseEntity<?> getStudentsByGender(@PathVariable char gender) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.getStudentsByGender(gender));
+        } catch (Exception e) {
+            String errorJson = "{\"message\": \"Error al buscar estudiante por genero\", \"details\"}";
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(errorJson);
+        }
     }
 
     // g)recuperar estudiantes por carrera y ciudad
-    @GetMapping("/career/{careerId}/city/{city}")
-    public List<Student> getStudentsByCareerAndCity(@PathVariable int careerId, @PathVariable String city) {
-        return studentService.getStudentsByCareerAndCity(careerId, city);
+    @GetMapping("/career/{careerId}/city/{cityId}")
+    public ResponseEntity<?> getStudentsByCareerAndCity(@PathVariable int careerId, @PathVariable int cityId) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.getStudentsByCareerAndCity(careerId, cityId));
+        } catch (Exception e) {
+            String errorJson = "{\"message\": \"Error al buscar estudiantes que cursan una carrera en una determinada ciudad\", \"details\"}";
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(errorJson);
+        }
     }
 }

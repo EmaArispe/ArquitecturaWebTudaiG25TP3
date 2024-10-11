@@ -17,6 +17,6 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     List<Student> findByGender(char gender);
 
     // Recuperar estudiantes por carrera y ciudad
-    @Query("SELECT s FROM Student s JOIN s.courses c WHERE c.career.idCareer = :careerId AND s.city.name = :city")
-    List<Student> findByCareerAndCity(@Param("careerId") int careerId, @Param("city") String city);
+    @Query("SELECT s FROM Student s JOIN s.courses c WHERE c.career.idCareer = :careerId AND s.city.id = :cityId")
+    List<Student> findByCareerAndCity(@Param("careerId") int careerId, @Param("cityId") int cityId);
 }
