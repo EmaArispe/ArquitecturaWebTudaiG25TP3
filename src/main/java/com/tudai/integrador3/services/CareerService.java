@@ -1,20 +1,29 @@
 package com.tudai.integrador3.services;
+import com.tudai.integrador3.dto.CareerStudentDto;
+import com.tudai.integrador3.dto.StudentDto;
 import com.tudai.integrador3.entity.Career;
 import com.tudai.integrador3.repository.CareerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service("CareerService")
 public class CareerService {
     @Autowired
     private CareerRepository careerRepository;
 
-    //punto g
-    public List<CareerCountDto>findCareersOrderedByStudentcount(){
-        return careerRepository.findCarrersOrderedByStudentCount();
+    //punto g/
+
+    public List<CareerStudentDto>findCareersOrderedByStudentcount(){
+        List<Object[]> careerList = careerRepository.findCarrersOrderedByStudentCount();
+        return careerList.stream().map(career-> new CareerStudentDto(
+                (Integer) career[0],
+                (String)career[1],
+                (Integer)career[2])).collect(Collectors.toList());
     }
 
     // crear o actualizar una carrera
@@ -32,13 +41,6 @@ public class CareerService {
         return careerRepository.findById(careerId);
     }
 
-    // eliminar una carrera por id
-    public void deleteCareer(int careerId) {
-        careerRepository.deleteById(careerId);
-    }
 
-    // buscar carrera por nombre
-    public List<Career> findCareersByName(String name) {
-        return careerRepository.findByNameContaining(name);
-    }
+
 }

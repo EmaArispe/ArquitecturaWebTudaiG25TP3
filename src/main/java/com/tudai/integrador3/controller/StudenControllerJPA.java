@@ -74,11 +74,11 @@ public class StudenControllerJPA {
                     .body(errorJson);
         }
     }
-
+    /*
     @GetMapping("/order")
     public ResponseEntity<?> getStudentByOrderBy(){
 
-    }
+    }*/
 
 
     // d)recuperar estudiante por num de libreta

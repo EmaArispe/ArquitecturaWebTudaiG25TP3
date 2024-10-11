@@ -45,9 +45,9 @@ public class CareerControllerJPA {
     }
 
     @GetMapping("/inscripts")
-    public ResponseEntity<Career> findCarrersOrderedByStudentCount(){
+    public ResponseEntity<?> findCarrersOrderedByStudentCount(){
         try{
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body((Career) careerService.findCareersOrderedByStudentcount());
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(careerService.findCareersOrderedByStudentcount());
         } catch (Exception e) {
             String errorJson = "{\"message\": \"Error en la consulta\", \"details\"}";
             return ResponseEntity
@@ -57,16 +57,4 @@ public class CareerControllerJPA {
         }
     }
 
-    // eliminar carrera
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCareer(@PathVariable int id) {
-        careerService.deleteCareer(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    // buscar carrera por nombre
-    @GetMapping("/search")
-    public List<Career> findCareersByName(@RequestParam String name) {
-        return careerService.findCareersByName(name);
-    }
 }
