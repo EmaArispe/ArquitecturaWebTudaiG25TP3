@@ -6,6 +6,7 @@ import com.tudai.integrador3.services.CareerService;
 import com.tudai.integrador3.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,19 @@ public class CareerControllerJPA {
     public ResponseEntity<Career> getCareerById(@PathVariable int id) {
         Optional<Career> career = careerService.getCareerById(id);
         return career.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/inscripts")
+    public ResponseEntity<Career> findCarrersOrderedByStudentCount(){
+        try{
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body((Career) careerService.findCareersOrderedByStudentcount());
+        } catch (Exception e) {
+            String errorJson = "{\"message\": \"Error en la consulta\", \"details\"}";
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(errorJson);
+        }
     }
 
     // eliminar carrera

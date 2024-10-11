@@ -12,6 +12,11 @@ public class CareerService {
     @Autowired
     private CareerRepository careerRepository;
 
+    //punto g
+    public List<CareerCountDto>findCareersOrderedByStudentcount(){
+        return careerRepository.findCarrersOrderedByStudentCount();
+    }
+
     // crear o actualizar una carrera
     public Career createOrUpdateCareer(Career career) {
         return careerRepository.save(career);
