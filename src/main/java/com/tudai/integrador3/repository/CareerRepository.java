@@ -16,7 +16,8 @@ public interface CareerRepository extends JpaRepository<Career, Integer> {
     @Query("SELECT new com.tudai.integrador3.dto.CareerStudentDto(c.idCareer, c.name,COUNT(s)) " +
             "FROM Career c JOIN c.students s " +
             "GROUP BY c.idCareer, c.name " +
-            "HAVING COUNT(s) > 0 ")
+            "HAVING COUNT(s) > 0 order by COUNT(s) DESC"
+            )
     List<CareerStudentDto> findCarrersOrderedByStudentCount();
 
     List<Career> findByNameContaining(String name);
