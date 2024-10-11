@@ -10,19 +10,19 @@ public class Student {
     @Column(name="DNI",nullable = false)
     private int dni;
 
-    @Column(name="idLibreta")
+    @Column(name="idLibreta",nullable = false)
     private int idLibreta;
 
-    @Column(name="Nombre")
+    @Column(name="Nombre",nullable = false)
     private String name;
 
-    @Column(name="Apellido")
+    @Column(name="Apellido",nullable = false)
     private String lastName;
 
-    @Column(name="Edad")
+    @Column(name="Edad",nullable = false)
     private int years;
 
-    @Column(name="Genero")
+    @Column(name="Genero",nullable = false)
     private char gender;
 
     @ManyToOne

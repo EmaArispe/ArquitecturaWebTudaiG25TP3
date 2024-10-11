@@ -13,4 +13,6 @@ public interface CityRepository extends JpaRepository<City,Integer> {
 
     @Query("SELECT c FROM City c WHERE c.name = :name")
     public default List<City> findAllByName(String name) {return new ArrayList<>();};
+    @Query("SELECT c FROM City c WHERE c.id=:id")
+    City existsById(long id);
 }

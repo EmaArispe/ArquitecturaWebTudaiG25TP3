@@ -37,7 +37,7 @@ public class CoursesService {
     }
 
     // crear un nuevo curso
-    public CoursesDto createCourse(CoursesDto courseDto) {
+    public CoursesDto createCourse(CoursesDto courseDto) throws ResourseNotFoundException {
         if(!studentRepository.existsById(courseDto.getStudentId())){
             throw new ResourseNotFoundException("El estudiante no existe");
         }

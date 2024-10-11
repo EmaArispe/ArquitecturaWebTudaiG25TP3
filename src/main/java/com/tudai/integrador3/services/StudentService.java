@@ -1,18 +1,25 @@
 package com.tudai.integrador3.services;
 
+import com.tudai.integrador3.Exeptions.ResourseNotFoundException;
+import com.tudai.integrador3.dto.CoursesDto;
+import com.tudai.integrador3.dto.StudentDto;
 import com.tudai.integrador3.entity.Career;
+import com.tudai.integrador3.entity.City;
 import com.tudai.integrador3.entity.Courses;
 import com.tudai.integrador3.entity.Student;
+import com.tudai.integrador3.repository.CityRepository;
 import com.tudai.integrador3.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.tudai.integrador3.repository.CareerRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service("StudentService")
 public class StudentService {
@@ -23,30 +30,31 @@ public class StudentService {
     @Autowired
     private CareerRepository careerRepository;
 
+    private CityRepository cityRepository;
+
 
     // crear estudiante
-    public Student createStudent(Student student) {
-        return studentRepository.save(student);
+    @Transactional
+    public StudentDto createStudent(Student student) throws RuntimeException {
+            Student s = studentRepository.save(student);
+            return new StudentDto(s.getDni(),s.getIdLibreta(),s.getName(),s.getLastName(),s.getYears(),s.getGender(),s.getCity().getName());
     }
 
-    public List<Student>getAll(){
-        return studentRepository.findAll();
-    }
-
-    // obtnere todos los estudiantes, con opción de ordenar
-    public List<Student> getAllStudents(String sortBy) {
-        if (sortBy != null) {
-            return studentRepository.findAll(Sort.by(sortBy));
-        } else {
-            return studentRepository.findAll();
+    //devolver todos los estudiantes
+    @Transactional
+    public List<StudentDto>getAll(){
+        List<Student> studentslist= studentRepository.findAll();
+        return studentslist.stream().map(student->new StudentDto(
+                student.getDni(),
+                student.getIdLibreta(),
+                student.getName(),
+                student.getLastName(),
+                student.getYears(),
+                student.getGender(),
+                student.getCity().getName())).collect(Collectors.toList());
         }
-    }
 
-    // matricular estudiante TODO
-    /*/
-    public Student enrollStudentInCareer(int studentId, int careerId) {
 
-    } */
 
     //buscar estudiante por num de libreta
     public ResponseEntity<Student> getStudentByLibreta(int libreta) {
@@ -63,4 +71,22 @@ public class StudentService {
     public List<Student> getStudentsByCareerAndCity(int careerId, String city) {
         return studentRepository.findByCareerAndCity(careerId, city);
     }
+
+
+
+    // obtnere todos los estudiantes, con opción de ordenar
+    /*public List<Student> getAllStudents(String sortBy) {
+        if (sortBy != null) {
+            return studentRepository.findAll(Sort.by(sortBy));
+        } else {
+            return studentRepository.findAll();
+        }
+    }*/
+
+    // matricular estudiante TODO
+    /*/
+    public Student enrollStudentInCareer(int studentId, int careerId) {
+
+    } */
+
 }

@@ -1,9 +1,13 @@
 package com.tudai.integrador3.controller;
+import com.tudai.integrador3.dto.StudentDto;
 import com.tudai.integrador3.entity.Student;
 import com.tudai.integrador3.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.List;
 
@@ -17,9 +21,18 @@ public class StudenControllerJPA {
 
     // a) dar de alta a un estudiante
     @PostMapping
-    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
-        Student createdStudent = studentService.createStudent(student);
-        return ResponseEntity.ok(createdStudent);
+    public ResponseEntity<?> createStudent(@RequestBody Student student) {
+        try{
+            StudentDto createdStudent = studentService.createStudent(student);
+            return ResponseEntity.ok(createdStudent);
+        } catch(Exception e) {
+            String errorJson = "{\"message\": \"Error al crear el estudiante\", \"details\"}";
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(errorJson);
+        }
+
     }
 
     // b)matricular a un estudiante en una carrera TODO
@@ -31,13 +44,13 @@ public class StudenControllerJPA {
     } */
 
     // c)recuperar todos los estudiantes ordenados por un criterio
-    /*@GetMapping
+    /*@GetMapping("/sortby/lastName/)
     public List<Student> getAllStudentsSortBy(@RequestParam(required = false) String sortBy) {
         return studentService.getAllStudents(sortBy);
     }*/
 
     @GetMapping
-    public List<Student> getAllStudents(){
+    public List<StudentDto> getAllStudents(){
         return studentService.getAll();
     }
 

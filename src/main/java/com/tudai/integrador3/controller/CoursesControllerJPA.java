@@ -3,6 +3,7 @@ import com.tudai.integrador3.dto.CoursesDto;
 import com.tudai.integrador3.dto.CreateCourseDto;
 import com.tudai.integrador3.entity.Courses;
 import com.tudai.integrador3.services.CoursesService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,10 @@ public class CoursesControllerJPA {
 
     @Autowired
     private CoursesService courseService;
-
+    /*
+    @postMapping("/enroll")
+    public ResponseEntity<?>enrollStudentCareer(@RequestBody)
+    */
     // a)obtener todos los cursos
     @GetMapping
     public ResponseEntity<List<CoursesDto>> getAllCourses() {
