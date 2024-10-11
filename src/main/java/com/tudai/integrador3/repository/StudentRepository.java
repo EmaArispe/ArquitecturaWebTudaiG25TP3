@@ -20,6 +20,4 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     @Query("SELECT s FROM Student s JOIN s.courses c WHERE c.career.idCareer = :careerId AND s.city.id = :cityId")
     List<Student> findByCareerAndCity(@Param("careerId") int careerId, @Param("cityId") int cityId);
 
-    @Query("SELECT s FROM ")
-    List<Student> findOrderBy();
 }

@@ -13,7 +13,7 @@ public class CareerService {
     private CareerRepository careerRepository;
 
     //punto g
-    public List<CareerCountDto>findCareersOrderedByStudentcount(){
+    public List<Career>findCareersOrderedByStudentcount(){
         return careerRepository.findCarrersOrderedByStudentCount();
     }
 

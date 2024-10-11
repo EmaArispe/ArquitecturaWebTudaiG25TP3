@@ -7,9 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/students")
@@ -75,8 +72,21 @@ public class StudenControllerJPA {
         }
     }
 
-    @GetMapping("/order")
-    public ResponseEntity<?> getStudentByOrderBy(){
+    // ejemplo: /years/ASC
+    //ordena estudiantes por algun criterio asc o desc.
+    @GetMapping("/{order}/{direction}")
+    public ResponseEntity<?> getStudentByOrderBy(@PathVariable String order, @PathVariable String direction){
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(studentService.getStudentByOrderBy(order,direction));
+        } catch (Exception e) {
+            String errorJson = "{\"message\": \"Error al buscar los estudiantes ordenados por algun criterio\", \"details\"}";
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(errorJson);
+        }
 
     }
 
