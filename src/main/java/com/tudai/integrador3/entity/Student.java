@@ -29,7 +29,6 @@ public class Student {
     private City city;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
-    @JsonIgnore
     private List<Courses> courses;  // muestro todas las carreras que cursa el estudiante
 
     public Student(){}

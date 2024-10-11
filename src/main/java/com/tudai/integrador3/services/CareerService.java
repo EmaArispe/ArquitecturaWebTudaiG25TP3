@@ -19,11 +19,8 @@ public class CareerService {
     //punto g/
 
     public List<CareerStudentDto>findCareersOrderedByStudentcount(){
-        List<Object[]> careerList = careerRepository.findCarrersOrderedByStudentCount();
-        return careerList.stream().map(career-> new CareerStudentDto(
-                (Integer) career[0],
-                (String)career[1],
-                (Integer)career[2])).collect(Collectors.toList());
+        List<CareerStudentDto> careerList = careerRepository.findCarrersOrderedByStudentCount();
+        return careerList;
     }
 
     // crear o actualizar una carrera
