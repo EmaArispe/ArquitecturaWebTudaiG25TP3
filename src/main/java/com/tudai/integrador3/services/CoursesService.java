@@ -2,6 +2,7 @@ package com.tudai.integrador3.services;
 import com.tudai.integrador3.Exeptions.ResourseNotFoundException;
 import com.tudai.integrador3.dto.CoursesDto;
 import com.tudai.integrador3.dto.CreateCourseDto;
+import com.tudai.integrador3.dto.EnrollStudentDto;
 import com.tudai.integrador3.entity.Career;
 import com.tudai.integrador3.entity.Courses;
 import com.tudai.integrador3.entity.Student;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +26,22 @@ public class CoursesService {
     private StudentRepository studentRepository;
     @Autowired
     private CareerRepository careerRepository;
+
+
+    public CoursesDto enrollStudentCareer(EnrollStudentDto enrollStudentDto){
+
+            Optional<Career> c = careerRepository.findById(enrollStudentDto.getCareerId());
+            Optional<Student> s = studentRepository.findById(enrollStudentDto.getStudentId());
+            if(c==null||s==null) {
+                throw new RuntimeException();
+            }
+            Courses course = courseRepository.save(new Courses(s.get(), c.get()));
+            return new CoursesDto(course.getStudent().getDni(), course.getCareer().getId(), course.getStart_date(), course.getFinish_date(), course.isGraduated());
+    }
+
+
+
+
 
     //obtener todos los cursos
     public List<CoursesDto> getAllCourses() {

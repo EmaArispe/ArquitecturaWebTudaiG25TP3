@@ -3,6 +3,8 @@ package com.tudai.integrador3.entity;
 import jakarta.annotation.Nullable;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Optional;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -50,6 +52,9 @@ public class Courses implements Serializable{
         this.start_date = start_date;
         this.finish_date = finish_date;
         this.graduated = true;
+    }
+
+    public Courses(Optional<Student> s, Optional<Student> c) {
     }
 
     public Career getCareer() {

@@ -1,11 +1,13 @@
 package com.tudai.integrador3.controller;
 import com.tudai.integrador3.dto.CoursesDto;
 import com.tudai.integrador3.dto.CreateCourseDto;
+import com.tudai.integrador3.dto.EnrollStudentDto;
 import com.tudai.integrador3.entity.Courses;
 import com.tudai.integrador3.services.CoursesService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +19,21 @@ public class CoursesControllerJPA {
 
     @Autowired
     private CoursesService courseService;
-    /*
-    @postMapping("/enroll")
-    public ResponseEntity<?>enrollStudentCareer(@RequestBody)
-    */
+
+    @PostMapping("/enroll")
+    public ResponseEntity<?>enrollStudentCareer(@RequestBody EnrollStudentDto enrollStudentDto){
+        try{
+          CoursesDto coursesDto= courseService.enrollStudentCareer(enrollStudentDto);
+          return ResponseEntity.status(HttpStatus.CREATED).body(coursesDto);
+        } catch (Exception e) {
+            String errorJson = "{\"message\": \"Error al asignar la carrera\", \"details\"}";
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(errorJson);
+        }
+    }
+
     // a)obtener todos los cursos
     @GetMapping
     public ResponseEntity<List<CoursesDto>> getAllCourses() {

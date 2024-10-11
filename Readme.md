@@ -61,7 +61,7 @@ Este endpoint permite registrar un nuevo estudiante en el sistema.
   "city":{"id":1}
 }
 ```
-    Cuerpo respuesta OK 200
+    Cuerpo respuesta OK 201
 ```json
 {
     "dni": 41385214,
@@ -78,10 +78,42 @@ Ante falta de campos o incorrecta solicitud
     Cuerpo respuesta BAD REQUEST 400
 ```json
 {
-    "message": "Faltan completar campos"
+    "message": "Error al ingresar el estudiante"
 }
 ```
 
 2. matricular un estudiante en una carrera
 
+Este endpoin permite matricular un estudiante en una carrera
+
+    Método HTTP: POST
+    URL: /courses/enroll
+    Body (JSON)
+
+```json
+{
+  "studentId": 35418649,
+  "careerId": 1 
+}
+```
+    Cuerpo respuesta OK 201
+```json
+{
+  "studentId": 35418649,
+  "careerId": 1,
+  "startDate": "2024-10-11",
+  "finishDate": null,
+  "graduated": false
+}
+```
+Ante falta de campos o incorrecta solicitud
+
+    Cuerpo respuesta BAD REQUEST 400
+```json
+{
+    "message": "Error al asignar la carrera",
+    "details"
+}
+```
+3. 
     
