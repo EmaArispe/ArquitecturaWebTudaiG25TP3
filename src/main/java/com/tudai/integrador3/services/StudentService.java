@@ -36,15 +36,17 @@ public class StudentService {
     // crear estudiante
     @Transactional
     public StudentDto createStudent(Student student) throws RuntimeException {
-            Student s = studentRepository.save(student);
-            return new StudentDto(s.getDni(),s.getIdLibreta(),s.getName(),s.getLastName(),s.getYears(),s.getGender(),s.getCity().getName());
+        Student s = studentRepository.save(student);
+        return new StudentDto(s.getDni(), s.getIdLibreta(), s.getName(), s.getLastName(), s.getYears(), s.getGender(), s.getCity().getName());
     }
+
+
 
     //devolver todos los estudiantes
     @Transactional
-    public List<StudentDto>getAll(){
-        List<Student> studentslist= studentRepository.findAll();
-        return studentslist.stream().map(student->new StudentDto(
+    public List<StudentDto> getAll() {
+        List<Student> studentslist = studentRepository.findAll();
+        return studentslist.stream().map(student -> new StudentDto(
                 student.getDni(),
                 student.getIdLibreta(),
                 student.getName(),
@@ -52,14 +54,30 @@ public class StudentService {
                 student.getYears(),
                 student.getGender(),
                 student.getCity().getName())).collect(Collectors.toList());
+    }
+
+    public StudentDto getStudentByDNI(int dni){
+        Optional<Student> student = studentRepository.findById(dni);
+        if(student.isPresent()){
+            return new StudentDto(student.get().getDni(),student.get().getIdLibreta(),student.get().getName(),
+                                  student.get().getLastName(),student.get().getYears(),student.get().getGender(),
+                                  student.get().getCity().getName());
         }
+        else {throw new RuntimeException();}
+    }
 
 
 
     //buscar estudiante por num de libreta
-    public ResponseEntity<Student> getStudentByLibreta(int libreta) {
+    public StudentDto getStudentByLibreta(int libreta) {
         Optional<Student> student = studentRepository.findByIdLibreta(libreta);
-        return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        if(student.isPresent()){
+            return new StudentDto(student.get().getDni(),student.get().getIdLibreta(),student.get().getName(),
+                                  student.get().getLastName(),student.get().getYears(),student.get().getGender(),
+                                  student.get().getCity().getName());
+        }else {
+            throw new RuntimeException();
+        }
     }
 
     // obtener estudiantes por genero

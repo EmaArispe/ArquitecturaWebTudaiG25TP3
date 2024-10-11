@@ -62,13 +62,31 @@ public class StudenControllerJPA {
         }
     }
 
+    @GetMapping("/{dni}")
+    public ResponseEntity<?> getStudentByDNI(@PathVariable int dni){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.getStudentByDNI(dni));
+        } catch (Exception e) {
+            String errorJson = "{\"message\": \"Error al solicitar el estudiante\", \"details\"}";
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(errorJson);
+        }
+    }
+
+    @GetMapping("/order")
+    public ResponseEntity<?> getStudentByOrderBy(){
+
+    }
+
+
     // d)recuperar estudiante por num de libreta
 
-    /// DEVOLVER DTO !!!!!!
-    @GetMapping("/studentNumber/{studentNumber}")
-    public ResponseEntity<?> getStudentByLibreta(@PathVariable int studentNumber) {
+    @GetMapping("/libreta/{idLibreta}")
+    public ResponseEntity<?> getStudentByLibreta(@PathVariable int idLibreta) {
         try {
-            return studentService.getStudentByLibreta(studentNumber);
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.getStudentByLibreta(idLibreta));
         }
         catch(Exception e) {
         String errorJson = "{\"message\": \"Error al buscar estudiante por libreta\", \"details\"}";
@@ -76,7 +94,7 @@ public class StudenControllerJPA {
                 .status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(errorJson);
-    }
+        }
     }
 
     // e)recuperar todos los estudiantes filtrados por genero
