@@ -1,12 +1,19 @@
 package com.tudai.integrador3.dto;
 
+import lombok.Getter;
+
 import java.time.LocalDate;
 
 public class CoursesDto {
+    @Getter
     private int studentId;
+    @Getter
     private int careerId;
+    @Getter
     private LocalDate startDate;
+    @Getter
     private LocalDate finishDate;
+    @Getter
     private boolean graduated;
 
     public CoursesDto(int studentId, int careerId, LocalDate startDate, LocalDate finishDate, boolean graduated) {
@@ -15,26 +22,5 @@ public class CoursesDto {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.graduated = graduated;
-    }
-
-    // Getters y setters
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public int getCareerId() {
-        return careerId;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getFinishDate() {
-        return finishDate;
-    }
-
-    public boolean isGraduated() {
-        return graduated;
     }
 }

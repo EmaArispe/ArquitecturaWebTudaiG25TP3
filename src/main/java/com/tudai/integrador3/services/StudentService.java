@@ -22,7 +22,7 @@ public class StudentService {
 
     @Autowired
     private CareerRepository careerRepository;
-
+    @Autowired
     private CityRepository cityRepository;
 
 
@@ -107,22 +107,5 @@ public class StudentService {
     public List<Student> getStudentsByCareerAndCity(int careerId, int cityId) {
             return studentRepository.findByCareerAndCity(careerId, cityId);
     }
-
-
-
-    // obtnere todos los estudiantes, con opción de ordenar
-    /*public List<Student> getAllStudents(String sortBy) {
-        if (sortBy != null) {
-            return studentRepository.findAll(Sort.by(sortBy));
-        } else {
-            return studentRepository.findAll();
-        }
-    }*/
-
-    // matricular estudiante TODO
-    /*/
-    public Student enrollStudentInCareer(int studentId, int careerId) {
-
-    } */
 
 }

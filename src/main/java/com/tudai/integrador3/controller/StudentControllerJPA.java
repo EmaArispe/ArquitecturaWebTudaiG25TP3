@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/students")
-public class StudenControllerJPA {
-
+public class StudentControllerJPA {
 
     @Autowired
     private StudentService studentService;
@@ -32,20 +31,7 @@ public class StudenControllerJPA {
 
     }
 
-    // b)matricular a un estudiante en una carrera TODO
-    /*
-    @PostMapping("/{studentId}/enroll")
-    public ResponseEntity<Student> enrollStudentInCareer(@PathVariable int studentId, @RequestParam int careerId) {
-        Student updatedStudent = studentService.enrollStudentInCareer(studentId, careerId);
-        return ResponseEntity.ok(updatedStudent);
-    } */
-
-    // c)recuperar todos los estudiantes ordenados por un criterio
-    /*@GetMapping("/sortby/lastName/)
-    public List<Student> getAllStudentsSortBy(@RequestParam(required = false) String sortBy) {
-        return studentService.getAllStudents(sortBy);
-    }*/
-
+    //Lista todos los estudiantes
     @GetMapping
     public ResponseEntity<?> getAllStudents(){
         try{
@@ -59,6 +45,7 @@ public class StudenControllerJPA {
         }
     }
 
+    // Muestra un estudiante por DNI
     @GetMapping("/{dni}")
     public ResponseEntity<?> getStudentByDNI(@PathVariable int dni){
         try{
@@ -93,7 +80,6 @@ public class StudenControllerJPA {
 
 
     // d)recuperar estudiante por num de libreta
-
     @GetMapping("/libreta/{idLibreta}")
     public ResponseEntity<?> getStudentByLibreta(@PathVariable int idLibreta) {
         try {

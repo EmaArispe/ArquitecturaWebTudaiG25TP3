@@ -1,7 +1,5 @@
 package com.tudai.integrador3.csvFile;
 
-//Crea JPARepositoryFactory con repositorios de cada entidad para leer CSV y persistirlos
-
 import com.tudai.integrador3.entity.Career;
 import com.tudai.integrador3.entity.City;
 import com.tudai.integrador3.entity.Courses;
@@ -13,10 +11,8 @@ import com.tudai.integrador3.repository.StudentRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -25,21 +21,16 @@ import java.util.Optional;
 @Component
 public class CSVReader {
     @Autowired
-    private final CityRepository cityRepository;
-    private final CareerRepository careerRepository;
-    private final CourseRepository coursesRepository;
-    private final StudentRepository studentRepository;
+    private CityRepository cityRepository;
+    @Autowired
+    private CareerRepository careerRepository;
+    @Autowired
+    private CourseRepository coursesRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
     private static final String PATH = "src/main/resources/";
     private static final String CSVSPLIT = ",";
-
-    @Autowired
-    public CSVReader(CityRepository cityRepository, CareerRepository careerRepository, CourseRepository coursesRepository, StudentRepository studentRepository) {
-        this.cityRepository = cityRepository;
-        this.careerRepository = careerRepository;
-        this.coursesRepository = coursesRepository;
-        this.studentRepository = studentRepository;
-    }
 
     public void loadData(){
         readFileCity();
@@ -114,9 +105,6 @@ public class CSVReader {
                     String[] datos = line.split(CSVSPLIT);
                     Optional<Student> student = studentRepository.findById(Integer.parseInt(datos[0]));
                     Optional<Career> career = careerRepository.findById(Integer.parseInt(datos[1]));
-
-                    // ---- VER QUE PASO CUANDO VIENE NULL ---
-
                     coursesRepository.save(getCorses(student.get(),career.get(),datos));
                 }
             }

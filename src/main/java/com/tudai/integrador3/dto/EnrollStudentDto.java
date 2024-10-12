@@ -1,32 +1,18 @@
 package com.tudai.integrador3.dto;
 
-import java.time.LocalDate;
+import lombok.Getter;
+import lombok.Setter;
 
 public class EnrollStudentDto {
 
+    @Getter @Setter
     private int studentId;
+    @Getter @Setter
     private int careerId;
 
     public EnrollStudentDto(int studentId, int careerId) {
         this.studentId = studentId;
         this.careerId = careerId;
     }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
-    public int getCareerId() {
-        return careerId;
-    }
-
-    public void setCareerId(int careerId) {
-        this.careerId = careerId;
-    }
-
 
 }

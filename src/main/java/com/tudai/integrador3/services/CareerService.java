@@ -1,16 +1,13 @@
 package com.tudai.integrador3.services;
 import com.tudai.integrador3.dto.CareerStudentDto;
 import com.tudai.integrador3.dto.ReportStudentDto;
-import com.tudai.integrador3.dto.StudentDto;
 import com.tudai.integrador3.entity.Career;
 import com.tudai.integrador3.repository.CareerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service("CareerService")
 public class CareerService {

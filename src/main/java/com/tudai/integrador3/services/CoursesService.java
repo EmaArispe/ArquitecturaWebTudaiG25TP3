@@ -1,7 +1,6 @@
 package com.tudai.integrador3.services;
 import com.tudai.integrador3.Exeptions.ResourseNotFoundException;
 import com.tudai.integrador3.dto.CoursesDto;
-import com.tudai.integrador3.dto.CreateCourseDto;
 import com.tudai.integrador3.dto.EnrollStudentDto;
 import com.tudai.integrador3.entity.Career;
 import com.tudai.integrador3.entity.Courses;
@@ -10,8 +9,6 @@ import com.tudai.integrador3.repository.CareerRepository;
 import com.tudai.integrador3.repository.CourseRepository;
 import com.tudai.integrador3.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,9 +35,6 @@ public class CoursesService {
             Courses course = courseRepository.save(new Courses(s.get(), c.get()));
             return new CoursesDto(course.getStudent().getDni(), course.getCareer().getId(), course.getStart_date(), course.getFinish_date(), course.isGraduated());
     }
-
-
-
 
 
     //obtener todos los cursos
@@ -75,9 +69,4 @@ public class CoursesService {
                 .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
     }
 
-    //eliminar un curso por su ID
-    public void deleteCourse(int courseId) {
-        Courses course = getCourseById(courseId);
-        courseRepository.delete(course);
-    }
 }

@@ -19,10 +19,12 @@ public class CityService {
         return cityRepository.save(newCity);
     }
 
+    //devuelve una ciudad por id
     public Optional<City> getCity(Integer id){
         return cityRepository.findById(id);
     }
 
+    //lista todas las ciudades
     public List<City> getAll(){
         return cityRepository.findAll();
     }

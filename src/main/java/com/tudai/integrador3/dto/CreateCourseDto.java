@@ -1,28 +1,16 @@
 package com.tudai.integrador3.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class CreateCourseDto {
 
-
-    private int studentId;  // o String si el DNI es un String
+    @Getter @Setter
+    private int studentId;
+    @Getter @Setter
     private int careerId;
 
     public CreateCourseDto() {}
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
-    public int getCareerId() {
-        return careerId;
-    }
-
-    public void setCareerId(int careerId) {
-        this.careerId = careerId;
-    }
 }
 
 
