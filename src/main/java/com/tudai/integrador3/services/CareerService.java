@@ -25,32 +25,25 @@ public class CareerService {
 
 
     //punto g/
-
-    public List<CareerStudentDto>findCareersOrderedByStudentcount(){
+    public List<CareerStudentDto>findCareersOrderedByStudentcount() {
         List<CareerStudentDto> careerList = careerRepository.findCarrersOrderedByStudentCount();
         return careerList;
-
-    //punto g
-    public List<Career>findCareersOrderedByStudentcount(){
-        return careerRepository.findCarrersOrderedByStudentCount();
-
-    }
-
-    // crear o actualizar una carrera
-    public Career createOrUpdateCareer(Career career) {
+        }
+        // crear o actualizar una carrera
+    public Career createOrUpdateCareer (Career career){
         return careerRepository.save(career);
     }
 
     // obtener todas las carreras
-    public List<Career> getAllCareers() {
+    public List<Career> getAllCareers () {
         return careerRepository.findAll();
     }
 
     // obtener carrera por id
-    public Optional<Career> getCareerById(int careerId) {
+    public Optional<Career> getCareerById ( int careerId){
         return careerRepository.findById(careerId);
     }
-
-
-
 }
+
+
+
