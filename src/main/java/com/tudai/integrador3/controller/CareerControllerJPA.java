@@ -58,6 +58,7 @@ public class CareerControllerJPA {
         }
     }
 
+
     @GetMapping("/report")
     public ResponseEntity<?> getStudentReportCarreerDto() {
         try {
@@ -72,4 +73,5 @@ public class CareerControllerJPA {
         }
 
     }
+
 }

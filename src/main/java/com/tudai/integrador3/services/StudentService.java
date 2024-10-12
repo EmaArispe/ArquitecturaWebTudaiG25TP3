@@ -1,22 +1,15 @@
 package com.tudai.integrador3.services;
 
-import com.tudai.integrador3.Exeptions.ResourseNotFoundException;
-import com.tudai.integrador3.dto.CoursesDto;
 import com.tudai.integrador3.dto.StudentDto;
-import com.tudai.integrador3.entity.Career;
-import com.tudai.integrador3.entity.City;
-import com.tudai.integrador3.entity.Courses;
 import com.tudai.integrador3.entity.Student;
 import com.tudai.integrador3.repository.CityRepository;
 import com.tudai.integrador3.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.tudai.integrador3.repository.CareerRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,19 +34,40 @@ public class StudentService {
     }
 
 
+    // Lista studiantes ordenados asc o desc por algun atributo
+    public List<StudentDto> getStudentByOrderBy(String colum, String order){
+        Sort sort = Sort.by(Sort.Direction.fromString(order),colum);
+        List<Student> studentslist = studentRepository.findAll(sort);
+        if(!studentslist.isEmpty()){
+            return studentslist.stream().map(student -> new StudentDto(
+                    student.getDni(),
+                    student.getIdLibreta(),
+                    student.getName(),
+                    student.getLastName(),
+                    student.getYears(),
+                    student.getGender(),
+                    student.getCity().getName())).collect(Collectors.toList());
+        }else{
+            throw new RuntimeException();
+        }
+    }
 
     //devolver todos los estudiantes
     @Transactional
     public List<StudentDto> getAll() {
         List<Student> studentslist = studentRepository.findAll();
-        return studentslist.stream().map(student -> new StudentDto(
-                student.getDni(),
-                student.getIdLibreta(),
-                student.getName(),
-                student.getLastName(),
-                student.getYears(),
-                student.getGender(),
-                student.getCity().getName())).collect(Collectors.toList());
+        if(!studentslist.isEmpty()) {
+            return studentslist.stream().map(student -> new StudentDto(
+                    student.getDni(),
+                    student.getIdLibreta(),
+                    student.getName(),
+                    student.getLastName(),
+                    student.getYears(),
+                    student.getGender(),
+                    student.getCity().getName())).collect(Collectors.toList());
+        }else{
+            throw new RuntimeException();
+        }
     }
 
     public StudentDto getStudentByDNI(int dni){

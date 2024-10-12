@@ -29,6 +29,11 @@ public class CareerService {
     public List<CareerStudentDto>findCareersOrderedByStudentcount(){
         List<CareerStudentDto> careerList = careerRepository.findCarrersOrderedByStudentCount();
         return careerList;
+
+    //punto g
+    public List<Career>findCareersOrderedByStudentcount(){
+        return careerRepository.findCarrersOrderedByStudentCount();
+
     }
 
     // crear o actualizar una carrera
