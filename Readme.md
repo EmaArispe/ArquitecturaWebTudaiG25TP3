@@ -61,7 +61,7 @@ Este endpoint permite registrar un nuevo estudiante en el sistema.
   "city":{"id":1}
 }
 ```
-    Cuerpo respuesta OK 201
+    Cuerpo respuesta CREATED 201
 ```json
 {
     "dni": 41385214,

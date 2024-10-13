@@ -95,7 +95,7 @@ public class StudentService {
     }
 
     // obtener estudiantes por genero
-    public List<Student> getStudentsByGender(char gender) {
+    public List<StudentDto> getStudentsByGender(char gender) {
         if(gender == 'M' || gender == 'm' || gender == 'f' || gender == 'F'){
             return studentRepository.findByGender(gender);
         }else{
@@ -104,7 +104,7 @@ public class StudentService {
     }
 
     // obtener estudiantes por carrera y ciudad
-    public List<Student> getStudentsByCareerAndCity(int careerId, int cityId) {
+    public List<StudentDto> getStudentsByCareerAndCity(int careerId, int cityId) {
             return studentRepository.findByCareerAndCity(careerId, cityId);
     }
 

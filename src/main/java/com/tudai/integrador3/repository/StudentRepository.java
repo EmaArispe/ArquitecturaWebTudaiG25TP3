@@ -1,5 +1,6 @@
 package com.tudai.integrador3.repository;
 
+import com.tudai.integrador3.dto.StudentDto;
 import com.tudai.integrador3.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,9 +14,14 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     Optional<Student> findByIdLibreta(int idLibreta);
 
     // Recuperar estudiantes filtrados por género
-    List<Student> findByGender(char gender);
+    @Query("SELECT new com.tudai.integrador3.dto.StudentDto(s.dni, s.idLibreta, s.name, s.lastName, s.years, s.gender, s.city.name)" +
+                "FROM Student s " +
+                "WHERE s.gender = :gender")
+    List<StudentDto> findByGender(char gender);
 
     // Recuperar estudiantes por carrera y ciudad
-    @Query("SELECT s FROM Student s JOIN s.courses c WHERE c.career.idCareer = :careerId AND s.city.id = :cityId")
-    List<Student> findByCareerAndCity(@Param("careerId") int careerId, @Param("cityId") int cityId);
+    @Query("SELECT new com.tudai.integrador3.dto.StudentDto(s.dni, s.idLibreta, s.name, s.lastName, s.years, s.gender, s.city.name) " +
+                "FROM Student s JOIN s.courses c " +
+                "WHERE c.career.idCareer = :careerId AND s.city.id = :cityId")
+    List<StudentDto> findByCareerAndCity(@Param("careerId") int careerId, @Param("cityId") int cityId);
 }

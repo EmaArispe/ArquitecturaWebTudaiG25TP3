@@ -61,7 +61,7 @@ public class StudentControllerJPA {
 
 
     // ejemplo: /years/ASC
-    //ordena estudiantes por algun criterio asc o desc.
+    // c) ordena estudiantes por algun criterio asc o desc.
     @GetMapping("/{order}/{direction}")
     public ResponseEntity<?> getStudentByOrderBy(@PathVariable String order, @PathVariable String direction){
         try {
