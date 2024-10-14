@@ -20,7 +20,7 @@ public class StudentControllerJPA {
     public ResponseEntity<?> createStudent(@RequestBody Student student) {
         try{
             StudentDto createdStudent = studentService.createStudent(student);
-            return ResponseEntity.ok(createdStudent);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdStudent);
         } catch(Exception e) {
             String errorJson = "{\"message\": \"Error al crear el estudiante\", \"details\"}";
             return ResponseEntity
